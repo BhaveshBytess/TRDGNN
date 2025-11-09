@@ -1,29 +1,74 @@
-# TRD-GNN Temporal Extension
+# TRD-GNN: Temporal Graph Neural Networks for Fraud Detection
 
-**Leakage-safe temporal GNN** for fraud detection on Elliptic++ dataset using **Time-Relaxed Directed (TRD) sampling**.
+**Leakage-safe temporal GNN** for cryptocurrency fraud detection on the Elliptic++ dataset using **Time-Relaxed Directed (TRD) sampling**.
 
-## Overview
+## 🎯 Overview
 
-This project extends baseline GNN fraud detection work by implementing temporal neighborhood sampling that strictly enforces `time(neighbor) <= time(target)` to prevent future information leakage.
+This project implements temporal Graph Neural Networks with strict temporal constraints to prevent information leakage. The core innovation is the TRD sampler, which enforces `time(neighbor) ≤ time(target)` during message passing, ensuring realistic fraud detection that respects transaction chronology.
 
-## Key Features
+## ✨ Key Features
 
-- **TRD Sampler**: Time-aware neighbor sampling preventing temporal leakage
-- **Temporal Models**: TRD-GraphSAGE and TRD-GCN implementations
-- **Baseline Integration**: Reuses splits and metrics from baseline project for fair comparison
-- **Reproducible**: Clean, documented code with comprehensive tests
+- **🕐 TRD Sampler**: Time-aware neighbor sampling preventing future information leakage
+- **🧠 Temporal Models**: TRD-GraphSAGE and TRD-GCN implementations
+- **📊 Baseline Integration**: Direct comparison with static GNN baselines
+- **✅ Fully Tested**: Comprehensive test suite (7/7 tests passing)
+- **📝 Well Documented**: Complete specification and provenance tracking
 
-## Setup
+## 🚀 Quick Start
 
-See `docs/CLONE_INIT_PROMPT_v3.md` for complete initialization steps.
+### Installation
 
-## Documentation
+```bash
+pip install -r requirements.txt
+```
 
-- `docs/PROJECT_SPEC_v3.md` - Project specification and scope
-- `docs/AGENT_v3.MD` - AI agent guidelines
-- `docs/START_PROMPT_v3.md` - Quick start instructions
-- `docs/baseline_provenance.json` - Baseline artifact tracking
+### Run Tests
 
-## Status
+```bash
+pytest tests/test_trd_sampler.py -v
+```
 
-🚧 In Development - Phase 2 (TRD Sampler Implementation)
+### Project Structure
+
+```
+.
+├── src/              # Source code
+│   ├── data/        # Data loaders and TRD sampler
+│   ├── models/      # GNN model implementations
+│   ├── utils/       # Utilities and metrics
+│   └── train.py     # Training scripts
+├── tests/           # Unit tests
+├── notebooks/       # Jupyter notebooks for experiments
+├── configs/         # Model configurations
+├── reports/         # Results and visualizations
+└── docs/            # Documentation
+```
+
+## 📚 Documentation
+
+- [**PROJECT_SPEC.md**](PROJECT_SPEC.md) - Complete project specification
+- [**AGENT.md**](AGENT.md) - AI agent development guidelines
+- [**START_PROMPT.md**](START_PROMPT.md) - Quick start instructions
+- [**CLONE_INIT_PROMPT.md**](CLONE_INIT_PROMPT.md) - Setup procedures
+- [**docs/baseline_provenance.json**](docs/baseline_provenance.json) - Baseline tracking
+
+## 📊 Baseline Comparison
+
+This project extends the baseline GNN fraud detection work from:
+- Repository: [Revisiting-GNNs-FraudDetection](https://github.com/BhaveshBytess/Revisiting-GNNs-FraudDetection)
+- Baseline metrics: XGBoost PR-AUC 0.669, GraphSAGE PR-AUC 0.648
+
+## 🧪 Status
+
+✅ **Phase 1 Complete**: Repository setup and initialization  
+✅ **Phase 2 Complete**: TRD sampler implementation (7/7 tests passing)  
+🚧 **Phase 3 In Progress**: Data loader integration  
+⏳ **Phase 4 Planned**: Model training and evaluation
+
+## 📄 License
+
+See [LICENSE](LICENSE) file for details.
+
+## 🙏 Acknowledgments
+
+Built upon the Elliptic++ dataset and baseline GNN implementations from the original fraud detection project.
