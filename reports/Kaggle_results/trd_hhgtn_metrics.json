@@ -1,0 +1,27 @@
+{
+  "model": "TRD-HHGTN",
+  "train": {
+    "pr_auc": 0.9068468296956322,
+    "roc_auc": 0.9828426834235076,
+    "best_f1": 0.841985595644933
+  },
+  "val": {
+    "pr_auc": 0.6417015053129299,
+    "roc_auc": 0.9430931837989582,
+    "best_f1": 0.7472150764664082
+  },
+  "test": {
+    "pr_auc": 0.2806169913170716,
+    "roc_auc": 0.8250113139573987,
+    "best_f1": 0.49266861672362644
+  },
+  "best_epoch": 40,
+  "hyperparameters": {
+    "hidden_dim": 128,
+    "num_layers": 2,
+    "dropout": 0.3,
+    "num_heads": 4,
+    "learning_rate": 0.001,
+    "weight_decay": 1e-05
+  }
+}
