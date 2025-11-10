@@ -2,14 +2,20 @@
 
 **Date:** November 10, 2025  
 **Project:** TRD-GNN Temporal Extension  
-**Milestone:** E4 - Comparison Report  
-**Status:** ✅ Complete
+**Milestone:** E4 + E6 - Comprehensive Comparison Report  
+**Status:** ✅ Complete (Updated with E6 Findings)
 
 ---
 
 ## Executive Summary
 
-This report compares the **TRD-GraphSAGE** (Time-Relaxed Directed Graph Neural Network) against baseline fraud detection models on the Elliptic++ Bitcoin transaction dataset. The key finding is that enforcing realistic temporal constraints—preventing the model from "seeing the future"—results in a **16.5% reduction in PR-AUC** compared to the best baseline, quantifying the "temporal tax" of deployment-ready fraud detection.
+This report compares temporal GNN approaches—**TRD-GraphSAGE** (homogeneous) and **TRD-HHGTN** (heterogeneous)—against baseline fraud detection models on the Elliptic++ Bitcoin transaction dataset. 
+
+**Key Findings:**
+1. Enforcing realistic temporal constraints results in a **16.5% reduction in PR-AUC** (TRD-GraphSAGE vs XGBoost)
+2. Adding heterogeneous structure (addresses) **worsens performance by 49.7%** (TRD-HHGTN vs TRD-GraphSAGE)
+3. **Simpler models generalize better** - 24K params (E3) beats 500K params (E6)
+4. **Feature engineering dominates** learned graph representations on this task
 
 ---
 
@@ -17,13 +23,14 @@ This report compares the **TRD-GraphSAGE** (Time-Relaxed Directed Graph Neural N
 
 ### 1.1 Key Metrics
 
-| Model | PR-AUC | ROC-AUC | F1 | Recall@1% | Type |
-|-------|--------|---------|----|-----------| -----|
-| **XGBoost** | **0.6689** | **0.8881** | **0.6988** | 0.1745 | Tabular (Best) |
-| Random Forest | 0.6583 | 0.8773 | 0.6945 | 0.1745 | Tabular |
-| **TRD-GraphSAGE** | **0.5582** | **0.8055** | **0.5860** | **0.1745** | **Temporal GNN** |
-| MLP | 0.3639 | 0.8297 | 0.4864 | 0.0943 | Neural Network |
-| Logistic Regression | 0.1638 | 0.8239 | 0.2559 | 0.0047 | Linear |
+| Model | PR-AUC | ROC-AUC | F1 | Recall@1% | Type | Params |
+|-------|--------|---------|----|-----------| -----|--------|
+| **XGBoost** | **0.6689** | **0.8881** | **0.6988** | 0.1745 | Tabular (Best) | N/A |
+| Random Forest | 0.6583 | 0.8773 | 0.6945 | 0.1745 | Tabular | N/A |
+| **TRD-GraphSAGE (E3)** | **0.5582** | **0.8055** | **0.5860** | **0.1745** | **Temporal GNN** | **24,706** |
+| MLP | 0.3639 | 0.8297 | 0.4864 | 0.0943 | Neural Network | N/A |
+| **TRD-HHGTN (E6)** | **0.2806** | **0.8250** | **0.4927** | - | **Heterogeneous GNN** | **~500,000** |
+| Logistic Regression | 0.1638 | 0.8239 | 0.2559 | 0.0047 | Linear | N/A |
 
 ### 1.2 Performance Gap: "The Temporal Tax"
 
@@ -201,7 +208,106 @@ Relative Difference:        -16.5%
 2. **Update README** - Add results section
 3. **Archive Artifacts** - All plots, metrics, checkpoints saved
 
-### 6.2 Future Work (Optional E5)
+### 6.2 E6 Experiment: Heterogeneous Graph Neural Networks ❌
+
+**Goal:** Extend TRD-GraphSAGE with heterogeneous graph structure (transactions + addresses) to capture richer patterns.
+
+**Implementation:**
+- **Model:** TRD-HHGTN (Temporal Heterogeneous Graph Transformer Network)
+- **Graph:** 203,769 transactions + 100,000 addresses = 303,769 nodes
+- **Edges:** 4 types (tx→tx, addr→tx, tx→addr, addr→addr) = 421,985 edges
+- **Architecture:** 
+  - Per-node-type input projections
+  - HeteroConv with SAGEConv per relation
+  - Semantic multi-head attention (4 heads)
+  - 2 layers, 128 hidden dim
+  - ~500,000 parameters (20x larger than E3)
+
+**Results:**
+
+| Metric | E3 (Baseline) | E6 (Heterogeneous) | Change |
+|--------|---------------|-------------------|---------|
+| Test PR-AUC | **0.5582** | **0.2806** | **-49.73%** ⚠️ |
+| Test ROC-AUC | 0.8055 | 0.8250 | +2.42% |
+| Test F1 | 0.5860 | 0.4927 | -15.93% |
+| Train PR-AUC | - | 0.9068 | Overfitting! |
+| Parameters | 24,706 | ~500,000 | 20x larger |
+
+**Verdict:** ❌ **FAILED** - Severe overfitting, heterogeneous structure hurt performance
+
+#### Root Cause Analysis
+
+**1. Severe Overfitting**
+- Train PR-AUC: 0.9068 (excellent)
+- Test PR-AUC: 0.2806 (poor)
+- **Train-Test Gap: 0.6262** (62.6 percentage points!)
+- Model memorized training data, failed to generalize
+
+**2. Excessive Model Complexity**
+- 500K parameters on 26K training samples = **19 samples per parameter**
+- Dropout 0.3 insufficient for such large model
+- Weight decay 1e-5 too weak
+- E3's simpler architecture (24K params) generalized better
+
+**3. Heterogeneous Structure Issues**
+- **Address features introduced noise** rather than signal
+- Top-K filtering (100K/823K addresses) may have lost important patterns
+- Bipartite edges didn't help on test set (temporal distribution shift)
+- E3 (homogeneous): 0.5582 → E6 (heterogeneous): 0.2806 = **-50% worse**
+
+**4. Temporal Distribution Shift**
+- Val PR-AUC: 0.6417 (reasonable)
+- Test PR-AUC: 0.2806 (poor)
+- **Val-Test Gap: 0.3611** (36.1 percentage points)
+- Patterns learned don't transfer across time periods
+
+#### Scientific Insights from E6
+
+**Finding 1: More Complex ≠ Better Performance**
+> Adding 20x more parameters led to 50% worse test performance. Model complexity must match available labeled data size.
+
+**Finding 2: Heterogeneous Graphs Can Hurt**
+> Adding address nodes reduced PR-AUC from 0.5582 → 0.2806. Not all graph enrichment helps—additional node/edge types can introduce noise.
+
+**Finding 3: Temporal Non-Stationarity is Critical**
+> 36pp val-test gap suggests fraud patterns change over time. Models trained on early data struggle on later data.
+
+**Finding 4: Regularization Matters Greatly**
+> E3 with dropout 0.4 generalized better than E6 with dropout 0.3. For small labeled datasets, aggressive regularization is critical.
+
+#### What E3 Did Right vs E6
+
+| Aspect | E3 (Winner) | E6 (Failed) |
+|--------|-------------|-------------|
+| **Architecture** | Simple, homogeneous | Complex, heterogeneous |
+| **Parameters** | 24,706 | ~500,000 (20x larger) |
+| **Node Types** | 1 (transactions only) | 2 (tx + addresses) |
+| **Edge Types** | 1 (tx→tx) | 4 (multiple relations) |
+| **Dropout** | 0.4 (higher) | 0.3 (lower) |
+| **Features** | Local only (AF1-AF93) | Local + address features |
+| **Test PR-AUC** | **0.5582** | **0.2806** |
+| **Generalization** | ✅ Good | ❌ Severe overfitting |
+
+#### Lessons Learned
+
+1. **Simplicity wins** when labeled data is limited
+2. **More structure ≠ better performance** - can introduce noise
+3. **Address features** may not transfer well across time
+4. **Parameter efficiency** crucial for fraud detection
+5. **E3 remains champion** - simpler homogeneous approach superior
+
+#### E6 Documentation Value
+
+While E6 failed to improve performance, it provides **valuable negative results**:
+- Quantifies cost of adding heterogeneous structure
+- Demonstrates overfitting patterns in complex temporal GNNs
+- Validates E3's simpler approach
+- Guides future architecture choices
+- Shows importance of matching model complexity to data
+
+**Status:** E6 documented as negative result, E3 remains best model
+
+### 6.3 Future Work (Beyond E6)
 
 #### **Architecture Improvements**
 - Increase model capacity (128 → 256 hidden channels)
@@ -230,7 +336,7 @@ Relative Difference:        -16.5%
 - Temporal window aggregation
 - Importance sampling based on time proximity
 
-### 6.3 Production Considerations
+### 6.4 Production Considerations
 
 **If deploying fraud detection:**
 1. **Use XGBoost** with pre-computed features (best performance)
@@ -244,19 +350,25 @@ Relative Difference:        -16.5%
 
 ### Summary
 
-The TRD-GraphSAGE experiment successfully:
-- ✅ Implemented leakage-safe temporal GNN with rigorous testing
-- ✅ Quantified "temporal tax" at 16.5% PR-AUC vs best baseline
+The TRD-GNN project successfully:
+- ✅ Implemented leakage-safe temporal GNN with rigorous testing (E2: TRD sampler, 7/7 tests pass)
+- ✅ Quantified "temporal tax" at 16.5% PR-AUC vs best baseline (E3: TRD-GraphSAGE)
+- ✅ Tested heterogeneous extension and documented negative results (E6: TRD-HHGTN)
+- ✅ Demonstrated that simpler models generalize better (24K params > 500K params)
+- ✅ Showed feature engineering outperforms learned GNN representations
 - ✅ Provided honest, deployment-ready fraud detection baseline
-- ✅ Demonstrated that feature engineering still outperforms learned GNN representations
 
 ### The Big Picture
 
 **What We Learned:**
-1. **Temporal realism has measurable cost** (~16.5% performance drop)
-2. **Aggregate features are powerful** (XGBoost wins)
-3. **Honest evaluation matters** (TRD prevents cheating)
+1. **Temporal realism has measurable cost** (~16.5% performance drop from XGBoost to E3)
+2. **Aggregate features are powerful** (XGBoost wins overall)
+3. **Honest evaluation matters** (TRD prevents temporal leakage)
 4. **GNNs need more sophistication** to beat feature engineering
+5. **More complex ≠ better** (E6 with 20x params performed 50% worse than E3)
+6. **Heterogeneous graphs can hurt** (address nodes introduced noise)
+7. **Regularization critical** for small labeled datasets
+8. **Temporal distribution shift** major challenge for fraud detection
 
 **Scientific Value:**
 This project provides a **reproducible, honest baseline** for temporal fraud detection on Elliptic++, with clear quantification of the trade-off between realism and performance.
@@ -306,12 +418,26 @@ This project provides a **reproducible, honest baseline** for temporal fraud det
 ```
 reports/
 ├── Kaggle_results/
-│   ├── trd_graphsage_best.pt
-│   ├── trd_graphsage_metrics.json
-│   ├── trd_graphsage_results.csv
-│   ├── trd_graphsage_training_history.png
-│   ├── trd_graphsage_pr_roc_curves.png
-│   └── RESULTS_ANALYSIS.md
+│   ├── E3 (TRD-GraphSAGE):
+│   │   ├── trd_graphsage_best.pt
+│   │   ├── trd_graphsage_metrics.json
+│   │   ├── trd_graphsage_results.csv
+│   │   ├── trd_graphsage_training_history.png
+│   │   └── trd_graphsage_pr_roc_curves.png
+│   ├── E5 (Heterogeneous Graph):
+│   │   ├── hetero_graph.pt
+│   │   ├── hetero_graph_summary.json
+│   │   └── node_mappings_sample.json
+│   ├── E6 (TRD-HHGTN):
+│   │   ├── TRD-HHGTN.ipynb
+│   │   ├── trd_hhgtn_best.pt
+│   │   ├── trd_hhgtn_metrics.json
+│   │   ├── trd_hhgtn_training_history.png
+│   │   ├── trd_hhgtn_pr_roc_curves.png
+│   │   ├── E6_ANALYSIS.md (comprehensive failure analysis)
+│   │   └── compare_e6_e3.py
+│   ├── RESULTS_ANALYSIS.md
+│   └── E5_RESULTS.md
 ├── plots/
 │   ├── model_comparison_all.png
 │   ├── model_comparison_top5.png
