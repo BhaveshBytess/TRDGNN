@@ -52,18 +52,51 @@ pytest tests/test_trd_sampler.py -v
 - [**CLONE_INIT_PROMPT.md**](CLONE_INIT_PROMPT.md) - Setup procedures
 - [**docs/baseline_provenance.json**](docs/baseline_provenance.json) - Baseline tracking
 
-## 📊 Baseline Comparison
+## 📊 Results & Baseline Comparison
 
-This project extends the baseline GNN fraud detection work from:
-- Repository: [Revisiting-GNNs-FraudDetection](https://github.com/BhaveshBytess/Revisiting-GNNs-FraudDetection)
-- Baseline metrics: XGBoost PR-AUC 0.669, GraphSAGE PR-AUC 0.648
+### Performance Summary
 
-## 🧪 Status
+| Model | PR-AUC | ROC-AUC | F1 | Type |
+|-------|--------|---------|----|----|
+| **XGBoost** (Baseline) | **0.6689** | 0.8881 | 0.6988 | Tabular |
+| Random Forest (Baseline) | 0.6583 | 0.8773 | 0.6945 | Tabular |
+| **TRD-GraphSAGE** | **0.5582** | 0.8055 | 0.5860 | **Temporal GNN** |
+| MLP (Baseline) | 0.3639 | 0.8297 | 0.4864 | Neural Net |
 
-✅ **Phase 1 Complete**: Repository setup and initialization  
-✅ **Phase 2 Complete**: TRD sampler implementation (7/7 tests passing)  
-🚧 **Phase 3 In Progress**: Data loader integration  
-⏳ **Phase 4 Planned**: Model training and evaluation
+### Key Finding: "The Temporal Tax"
+
+Enforcing realistic temporal constraints (no future neighbors) results in a **16.5% reduction in PR-AUC** compared to the best baseline. This quantifies the cost of deployment-ready, leakage-free fraud detection.
+
+**Implications:**
+- ✅ TRD-GraphSAGE provides **honest, deployment-ready** predictions
+- ❌ Static models may "cheat" by accessing future information
+- 💡 Feature engineering (XGBoost) still beats learned GNN representations
+
+### Visualizations
+
+<details>
+<summary>Click to view comparison charts</summary>
+
+![Model Comparison](reports/plots/model_comparison_top5.png)
+![Performance Gap](reports/plots/performance_gap.png)
+![PR vs ROC](reports/plots/pr_roc_scatter.png)
+
+</details>
+
+**Full Analysis:** See [COMPARISON_REPORT.md](reports/COMPARISON_REPORT.md)
+
+### Baseline Source
+
+This project extends: [Revisiting-GNNs-FraudDetection](https://github.com/BhaveshBytess/Revisiting-GNNs-FraudDetection)  
+Commit: `ccab3f9` | Date: Nov 9, 2025
+
+## 🧪 Project Status
+
+✅ **E1 - Bootstrap & Provenance:** Complete  
+✅ **E2 - TRD Sampler MVP:** Complete (7/7 tests passing)  
+✅ **E3 - TRD-GraphSAGE Training:** Complete (Kaggle results acquired)  
+✅ **E4 - Comparison Report:** **COMPLETE** ⭐  
+⏳ **E5 - Optional Variants:** Available (improvements possible)
 
 ## 📄 License
 
