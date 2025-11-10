@@ -1,0 +1,20 @@
+{
+  "timestamp": 1762764159,
+  "experiment": "trd-gnn-temporal",
+  "model": "TRD-GraphSAGE",
+  "split": "test",
+  "pr_auc": 0.5581849700383511,
+  "roc_auc": 0.8055491458036695,
+  "f1": 0.586,
+  "recall@1%": 0.17452830188679244,
+  "recall@0.5%": 0.08647798742138364,
+  "recall@2%": 0.33490566037735847,
+  "best_threshold": 0.47999999999999976,
+  "best_epoch": 100,
+  "total_epochs": 100,
+  "feature_set": "Local (AF1-AF93)",
+  "num_parameters": 24706,
+  "hidden_channels": 128,
+  "num_layers": 2,
+  "dropout": 0.4
+}

@@ -1,0 +1,2 @@
+timestamp,experiment,model,split,pr_auc,roc_auc,f1,recall@1%
+1762764159,trd-gnn-temporal,TRD-GraphSAGE,test,0.5581849700383511,0.8055491458036695,0.586,0.17452830188679244
