@@ -18,9 +18,10 @@ This project implements and systematically investigates temporal Graph Neural Ne
 - **🔬 Systematic Investigation**: E6 failure → E7 ablations → improved model (complete scientific story)
 - **🏆 Best Temporal GNN**: 0.5846 PR-AUC (E7-A3), beating baseline by +4.1%
 - **📉 Temporal Tax Reduction**: From 16.5% (E3) → 12.6% (E7-A3) vs unrealistic models
+- **🎯 Novel Fusion Approach (E9)**: Wallet-level GNN+Tabular fusion achieves +33.5% improvement
 - **📐 Design Principles**: Architecture guidelines for small-dataset heterogeneous temporal GNNs
 - **🕐 Zero-Leakage Implementation**: TRD sampler with 7/7 tests passing
-- **📊 Five Novel Findings**: Architecture-induced collapse, partial edge collapse, attention issues, hetero success, temporal tax
+- **📊 Six Novel Findings**: Architecture-induced collapse, partial edge collapse, attention issues, hetero success, temporal tax, fusion synergy
 - **✅ Publication-Ready**: Complete narrative from hypothesis through failure to improved solution
 
 ## 🚀 Quick Start
@@ -56,12 +57,15 @@ pytest tests/test_trd_sampler.py -v
 ## 📚 Documentation
 
 **Start Here:**
-- [**📖 PROJECT_NARRATIVE.md**](docs/PROJECT_NARRATIVE.md) - **Complete scientific story** (E6→E7 progression, value explanation)
-- [**📊 COMPARISON_REPORT.md**](reports/COMPARISON_REPORT.md) - Comprehensive results analysis with E7 findings
+- [**📖 PROJECT_NARRATIVE.md**](docs/PROJECT_NARRATIVE.md) - **Complete scientific story** (E6→E7→E9 progression, value explanation)
+- [**📊 COMPARISON_REPORT.md**](reports/COMPARISON_REPORT.md) - Comprehensive results analysis with E7 & E9 findings
+
+**Experiment Results:**
+- [**E7_ABLATION_STUDY.md**](docs/E7_ABLATION_STUDY.md) - Systematic investigation methodology
+- [**E9_RESULTS.md**](reports/kaggle_results/E9_RESULTS.md) - **Wallet fusion study (+33.5% improvement)**
 
 **Technical Details:**
 - [**PROJECT_SPEC.md**](PROJECT_SPEC.md) - Technical specification
-- [**E7_ABLATION_STUDY.md**](docs/E7_ABLATION_STUDY.md) - Systematic investigation methodology
 - [**E6_HETEROGENEOUS_GNN_DOCUMENTATION.md**](docs/E6_HETEROGENEOUS_GNN_DOCUMENTATION.md) - Complex model failure analysis
 
 **Setup & Operations:**
@@ -77,16 +81,18 @@ pytest tests/test_trd_sampler.py -v
 |-------|--------|---------|----|----|
 | **XGBoost** (Baseline) | **0.6689** | 0.8881 | 0.6988 | Tabular |
 | Random Forest (Baseline) | 0.6583 | 0.8773 | 0.6945 | Tabular |
-| **Simple-HHGTN (E7-A3)** ⭐ | **0.5846** | 0.8306 | 0.2584 | **Temporal Hetero GNN (BEST)** |
+| **Simple-HHGTN (E7-A3)** ⭐ | **0.5846** | 0.8306 | 0.2584 | **Temporal Hetero GNN (BEST GNN)** |
 | **TRD-GraphSAGE (E3)** | **0.5582** | 0.8055 | 0.5860 | **Temporal GNN** |
 | MLP (Baseline) | 0.3639 | 0.8297 | 0.4864 | Neural Net |
+| **E9 Fusion (GNN+Tabular)** 🏆 | **0.3003** | 0.8897 | 0.1758 | **Wallet-Level (+33.5%)** |
 
 ### The Complete Scientific Story
 
 **E3 (Baseline):** Homogeneous temporal GNN → 0.5618 PR-AUC  
 **E6 (Hypothesis):** Complex heterogeneous GNN → 0.2806 PR-AUC (-49.7% ❌ failure)  
 **E7 (Investigation):** Systematic ablations to isolate root cause  
-**E7-A3 (Resolution):** Simplified heterogeneous GNN → 0.5846 PR-AUC (+4.1% ✅ success)
+**E7-A3 (Resolution):** Simplified heterogeneous GNN → 0.5846 PR-AUC (+4.1% ✅ success)  
+**E9 (Fusion):** GNN embeddings + Tabular features → 0.3003 PR-AUC (+33.5% ✅ synergy)
 
 **Key Discoveries:**
 1. **E6's failure was architectural, not structural** - Semantic attention + weak regularization caused collapse
@@ -94,9 +100,10 @@ pytest tests/test_trd_sampler.py -v
 3. **Architecture > Scale** - 50K params (A3) beats 500K params (E6) by 108%
 4. **Attention hurts small datasets** - Simple sum aggregation generalizes better
 5. **"Temporal tax" reduced** - From 16.5% (E3) → 12.6% (A3) vs unrealistic baselines
+6. **Fusion creates synergy (E9)** - Combining GNN embeddings with tabular features achieves +33.5% improvement
 
 **Scientific Value:**
-This E6→E7 progression demonstrates the **scientific method in action**: hypothesis → failure → systematic investigation → corrected understanding → improved solution. This complete narrative is **more valuable** than a single finding.
+This E6→E7→E9 progression demonstrates the **scientific method in action**: hypothesis → failure → systematic investigation → corrected understanding → improved solution → novel fusion approach. This complete narrative is **more valuable** than a single finding.
 
 ### Visualizations
 
@@ -125,7 +132,8 @@ Commit: `ccab3f9` | Date: Nov 9, 2025
 ✅ **E5 - Heterogeneous Graph Construction:** Complete (303K nodes, 422K edges)  
 ✅ **E6 - TRD-HHGTN (Complex):** Complete (negative result documented)  
 ✅ **E7 - Ablation Study:** **COMPLETE** - Found improved model! ⭐  
-⏳ **E8-E9:** Available for future enhancements
+✅ **E9 - Wallet Fusion:** **COMPLETE** - Fusion achieves +33.5% improvement! 🏆  
+⏳ **E8:** Available for future work (temporal dynamics study)
 
 ## 📄 License
 

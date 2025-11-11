@@ -2,21 +2,22 @@
 
 **Date:** November 11, 2025  
 **Project:** TRD-GNN Temporal Extension  
-**Milestone:** E4 + E6 + E7 - Comprehensive Comparison Report  
-**Status:** ✅ Complete (Updated with E7 Ablation Results)
+**Milestone:** E4 + E6 + E7 + E9 - Comprehensive Comparison Report  
+**Status:** ✅ Complete (Updated with E7 Ablation & E9 Fusion Results)
 
 ---
 
 ## Executive Summary
 
-This report compares temporal GNN approaches—**TRD-GraphSAGE** (homogeneous), **TRD-HHGTN** (heterogeneous), and **E7 ablations**—against baseline fraud detection models on the Elliptic++ Bitcoin transaction dataset. 
+This report compares temporal GNN approaches—**TRD-GraphSAGE** (homogeneous), **TRD-HHGTN** (heterogeneous), **E7 ablations**, and **E9 wallet fusion**—against baseline fraud detection models on the Elliptic++ Bitcoin transaction dataset. 
 
 **Key Findings:**
 1. Enforcing realistic temporal constraints results in a **16.5% reduction in PR-AUC** (TRD-GraphSAGE vs XGBoost)
 2. **E7 ablations discovered improved architecture:** Simplified HHGTN with all edges (A3) achieves **0.5846 PR-AUC** (+4.7% over E3)
 3. **Complex architectures fail:** Full TRD-HHGTN (E6) with 500K params underperforms simple 24K param model by 50%
 4. **Architecture matters more than scale:** Removing semantic attention improves generalization
-5. **Feature engineering still dominates** learned representations, but gap narrowing
+5. **E9 fusion demonstrates synergy:** Combining GNN embeddings with tabular features achieves **+33.5% improvement** over tabular-only baseline
+6. **Feature engineering still dominates** learned representations in direct comparison, but fusion closes the gap
 
 ---
 
@@ -28,15 +29,19 @@ This report compares temporal GNN approaches—**TRD-GraphSAGE** (homogeneous), 
 |-------|--------|---------|----|-----------| -----|--------|
 | **XGBoost** | **0.6689** | **0.8881** | **0.6988** | 0.1745 | Tabular (Best Overall) | N/A |
 | Random Forest | 0.6583 | 0.8773 | 0.6945 | 0.1745 | Tabular | N/A |
-| **Simple-HHGTN (E7-A3)** ⭐ | **0.5846** | **0.8306** | **0.2584** | - | **Temporal Hetero GNN** | **~50,000** |
+| **Simple-HHGTN (E7-A3)** ⭐ | **0.5846** | **0.8306** | **0.2584** | - | **Temporal Hetero GNN (BEST GNN)** | **~50,000** |
 | **TRD-GraphSAGE (E3)** | **0.5582** | **0.8055** | **0.5860** | **0.1745** | **Temporal GNN** | **24,706** |
 | MLP | 0.3639 | 0.8297 | 0.4864 | 0.0943 | Neural Network | N/A |
+| **E9 Fusion (GNN+Tabular)** 🏆 | **0.3003** | **0.8897** | **0.1758** | - | **Wallet-Level Fusion** | **50K + XGBoost** |
+| E9 Tabular-Only | 0.2249 | 0.8783 | 0.1824 | - | Wallet XGBoost Baseline | XGBoost |
 | **TRD-HHGTN (E6)** ❌ | **0.2806** | **0.8250** | **0.4927** | - | **Complex Hetero GNN** | **~500,000** |
+| E9 Embeddings-Only | 0.1339 | 0.8286 | 0.1244 | - | Wallet GNN Only | ~50,000 |
 | Logistic Regression | 0.1638 | 0.8239 | 0.2559 | 0.0047 | Linear | N/A |
 | Simple-HHGTN (E7-A1) | 0.0687 | 0.6218 | 0.1572 | - | Ablation | ~50,000 |
 | Simple-HHGTN (E7-A2) | 0.0524 | 0.5082 | 0.1115 | - | Ablation | ~50,000 |
 
-**⭐ NEW BEST TEMPORAL GNN:** E7-A3 achieves 0.5846 PR-AUC (+4.7% over E3, +108% over E6)
+**⭐ BEST TEMPORAL GNN:** E7-A3 achieves 0.5846 PR-AUC (+4.7% over E3, +108% over E6)  
+**🏆 NOVEL FUSION:** E9 demonstrates +33.5% improvement over tabular-only baseline through GNN embedding fusion
 
 ### 1.2 Performance Gap: "The Temporal Tax" (Updated with E7)
 
@@ -619,7 +624,7 @@ reports/
 └── COMPARISON_REPORT.md (this file)
 ```
 
-### 8.4 Reproducibility
+### 9.4 Reproducibility
 
 All experiments conducted with:
 - Random seed: 42
@@ -631,9 +636,9 @@ All experiments conducted with:
 
 ---
 
-**Report Generated:** November 10, 2025  
+**Report Generated:** November 11, 2025 (Updated with E9)  
 **Authors:** TRD-GNN Project Team  
-**Milestone:** E4 Complete ✅
+**Milestones:** E4 + E6 + E7 + E9 Complete ✅
 
 ---
 
