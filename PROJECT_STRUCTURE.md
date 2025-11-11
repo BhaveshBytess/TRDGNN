@@ -300,11 +300,12 @@ Zero-leakage sampler with 7/7 tests passing
 
 ---
 
-## 🔗 External Links
+## 🔗 Repository & Resources
 
-- **GitHub Repository:** https://github.com/BhaveshBytess/TRDGNN
-- **Kaggle Notebooks:** (links in individual experiment docs)
-- **Dataset:** Elliptic++ (https://www.kaggle.com/ellipticco)
+- **🔗 GitHub Repository:** [https://github.com/BhaveshBytess/TRDGNN](https://github.com/BhaveshBytess/TRDGNN)
+- **📓 Kaggle Notebooks:** All experiments (E3, E5, E6, E7, E9) ran on Kaggle (links in experiment docs)
+- **📊 Dataset:** [Elliptic++ on Kaggle](https://www.kaggle.com/ellipticco)
+- **📄 Baseline Project:** [Revisiting-GNNs-FraudDetection](https://github.com/BhaveshBytess/Revisiting-GNNs-FraudDetection)
 
 ---
 

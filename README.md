@@ -135,9 +135,29 @@ Commit: `ccab3f9` | Date: Nov 9, 2025
 ✅ **E9 - Wallet Fusion:** **COMPLETE** - Fusion achieves +33.5% improvement! 🏆  
 ⏳ **E8:** Available for future work (temporal dynamics study)
 
+## 🔗 Repository & Resources
+
+- **🔗 GitHub:** [https://github.com/BhaveshBytess/TRDGNN](https://github.com/BhaveshBytess/TRDGNN)
+- **📊 Dataset:** [Elliptic++ on Kaggle](https://www.kaggle.com/ellipticco)
+- **📄 Baseline:** [Revisiting-GNNs-FraudDetection](https://github.com/BhaveshBytess/Revisiting-GNNs-FraudDetection)
+
+## 📝 Citation
+
+If you use this work, please cite:
+
+```bibtex
+@software{trd_gnn_2025,
+  title={TRD-GNN: Time-Relaxed Directed Graph Neural Networks for Bitcoin Fraud Detection},
+  author={Bhavesh and Contributors},
+  year={2025},
+  url={https://github.com/BhaveshBytess/TRDGNN},
+  note={Complete E1-E9 implementation with novel fusion approach and systematic investigation}
+}
+```
+
 ## 📄 License
 
-See [LICENSE](LICENSE) file for details.
+MIT License - See [LICENSE](LICENSE) file for details.
 
 ## 🙏 Acknowledgments
 

@@ -78,3 +78,20 @@ debug.log
 
 # Archived notebooks
 notebooks/archive/
+
+# Development/Agent artifacts (not for public view)
+AGENT.md
+START_PROMPT.md
+CLONE_INIT_PROMPT.md
+QUICKSTART.md
+VERIFICATION_REPORT.md
+AGENT_v3.MD
+CLONE_INIT_PROMPT_v3.md
+START_PROMPT_v3.md
+PROJECT_SPEC_v3.md
+docs/AGENT_v3.MD
+docs/*_v3.md
+docs/*PROMPT*.md
+docs/CLONE_INIT*.md
+docs/START_PROMPT*.md
+PROJECT_ANALYSIS_REPORT.md
