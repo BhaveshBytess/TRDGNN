@@ -9,10 +9,18 @@
 
 ## 🎯 Executive Summary
 
+![Research Journey](../reports/plots/experiment_timeline.png)
+
+*Complete E1-E9 research journey showing the scientific method in action*
+
 This document presents the **complete scientific narrative** of the TRD-GNN project, explaining how our research progressed from initial hypothesis through failure, systematic investigation, and ultimately to an improved solution. This is the **definitive guide** to understanding the project's value and contributions.
 
 **Key Achievement:**
 We developed the first successful heterogeneous temporal GNN for fraud detection, achieving **0.5846 PR-AUC** (+4.7% over baseline) while reducing the "temporal tax" from 16.5% to 12.6%. Through systematic investigation of initial failures and novel fusion experiments, we demonstrated that **graph structure + tabular features achieve +33.5% synergy**, establishing the scientific method in action.
+
+![Six Novel Contributions](../reports/plots/six_contributions.png)
+
+*Six distinct contributions rated by citation value*
 
 ---
 
@@ -31,6 +39,10 @@ We developed the first successful heterogeneous temporal GNN for fraud detection
 
 ## 🚀 The Research Journey
 
+![Scientific Story Flowchart](../reports/plots/scientific_story_flowchart.png)
+
+*Complete scientific method: Hypothesis → Failure → Investigation → Solution → Application*
+
 ### Phase 1: Foundation (E1-E3)
 
 **Goal:** Establish honest temporal baseline
@@ -44,6 +56,10 @@ We developed the first successful heterogeneous temporal GNN for fraud detection
 - ✅ TRD sampler: 7/7 tests passing (strict temporal constraints)
 - ✅ E3: 0.5618 PR-AUC (deployment-ready baseline)
 - ✅ Quantified "temporal tax": 16.5% drop vs XGBoost (0.6689)
+
+![Temporal Tax](../reports/plots/temporal_tax_reduction.png)
+
+*Temporal tax quantified at 16.5% for honest temporal evaluation*
 
 **Scientific Value:**
 - First rigorously tested temporal fraud detection GNN
@@ -97,6 +113,10 @@ Designed 3 ablation experiments to isolate variables:
 
 **Results:**
 
+![Performance Evolution](../reports/plots/performance_evolution.png)
+
+*E6 failure (-49.7%) followed by E7-A3 success (+108% improvement over E6)*
+
 ```
 E3 (baseline):      0.5618 PR-AUC  [Homogeneous]
 A1 (tx-only):       0.0687 PR-AUC  [Architecture fails with hetero framework]
@@ -104,6 +124,10 @@ A2 (addr↔tx):       0.0524 PR-AUC  [Partial edges fail]
 A3 (all edges):     0.5846 PR-AUC  [NEW BEST! Beats E3 by +4.1%]
 E6 (complex):       0.2806 PR-AUC  [Over-complex architecture]
 ```
+
+![Architecture vs Scale](../reports/plots/architecture_vs_scale.png)
+
+*Architecture > Scale: Simple 50K param model beats complex 500K param model by 108%*
 
 **Discovery:**
 > "Architecture was the problem, not structure! Simplified heterogeneous design IMPROVES performance."
@@ -126,6 +150,10 @@ E6 (complex):       0.2806 PR-AUC  [Over-complex architecture]
 - ✅ Tabular-only: 0.2249 PR-AUC (baseline)
 - ⚠️ Embeddings-only: 0.1339 PR-AUC (-40.5%)
 - ✅ **Fusion: 0.3003 PR-AUC (+33.5%!)** 🏆
+
+![E9 Fusion Synergy](../reports/plots/e9_fusion_synergy.png)
+
+*E9 fusion demonstrates clear synergy: GNN + tabular > either alone*
 
 **Scientific Value:**
 - First wallet-level fusion study for Bitcoin fraud detection

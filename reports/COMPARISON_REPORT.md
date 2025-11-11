@@ -9,7 +9,15 @@
 
 ## Executive Summary
 
+![All Experiments Summary](plots/all_experiments_summary.png)
+
+*Complete E1-E9 experimental results with comprehensive performance comparison*
+
 This report compares temporal GNN approaches—**TRD-GraphSAGE** (homogeneous), **TRD-HHGTN** (heterogeneous), **E7 ablations**, and **E9 wallet fusion**—against baseline fraud detection models on the Elliptic++ Bitcoin transaction dataset. 
+
+![Scientific Story](plots/scientific_story_flowchart.png)
+
+*The complete scientific method: hypothesis → failure → investigation → solution → application*
 
 **Key Findings:**
 1. Enforcing realistic temporal constraints results in a **16.5% reduction in PR-AUC** (TRD-GraphSAGE vs XGBoost)
@@ -45,6 +53,10 @@ This report compares temporal GNN approaches—**TRD-GraphSAGE** (homogeneous), 
 
 ### 1.2 Performance Gap: "The Temporal Tax" (Updated with E7)
 
+![Temporal Tax Reduction](plots/temporal_tax_reduction.png)
+
+*Temporal tax reduced from 16.5% (E3) to 12.6% (E7-A3) through architectural improvements*
+
 ```
 Best Baseline (XGBoost):        0.6689 PR-AUC
 Best Temporal GNN (E7-A3):      0.5846 PR-AUC  ⭐ NEW
@@ -65,39 +77,23 @@ E7-A3 Improvement over E3:     +0.0264 (+4.7%)
 
 ## 2. Visual Comparisons
 
-### 2.1 All Models Comparison
+### 2.1 Architecture vs Scale Principle
 
-![All Models Comparison](plots/model_comparison_all.png)
+![Architecture vs Scale](plots/architecture_vs_scale.png)
 
-**Key Observations:**
-- XGBoost and Random Forest (tabular models) achieve the highest PR-AUC
-- TRD-GraphSAGE (red bar) ranks in the middle tier
-- Simple baselines (Logistic Regression) perform significantly worse
-- All models show reasonable ROC-AUC (>0.80)
+*50K parameter simple model (E7-A3) beats 500K parameter complex model (E6) by 108%*
 
-### 2.2 Top 5 Models Head-to-Head
+### 2.2 Performance Evolution: E6 → E7-A3
 
-![Top 5 Models](plots/model_comparison_top5.png)
+![Performance Evolution](plots/performance_evolution.png)
 
-**Analysis:**
-- Top 2 performers are both tree-based ensemble methods
-- TRD-GraphSAGE underperforms XGBoost by 0.11 PR-AUC points
-- Gap between TRD and best baseline is substantial but not catastrophic
-- All top models use the full feature set or pre-computed aggregates
+*Systematic investigation led to +108% improvement through architectural simplification*
 
-### 2.3 PR-AUC vs ROC-AUC Trade-off
+### 2.3 E9 Fusion Synergy
 
-![PR-AUC vs ROC-AUC Scatter](plots/pr_roc_scatter.png)
+![E9 Fusion Synergy](plots/e9_fusion_synergy.png)
 
-**Insights:**
-- TRD-GraphSAGE maintains competitive ROC-AUC (0.8055)
-- Larger gap in PR-AUC reflects challenge with imbalanced classes
-- XGBoost achieves best balance of both metrics
-- TRD sits in "moderate performance" cluster
-
-### 2.4 Performance Gap Visualization
-
-![Performance Gap](plots/performance_gap.png)
+*Combining GNN embeddings with tabular features achieves +33.5% improvement*
 
 **"The Temporal Tax" Quantified:**
 - Visual representation of the 16.5% gap

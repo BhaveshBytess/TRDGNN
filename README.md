@@ -72,6 +72,12 @@ pytest tests/test_trd_sampler.py -v
 
 ## 📊 Results & Baseline Comparison
 
+### Research Journey Timeline
+
+![Experiment Timeline](reports/plots/experiment_timeline.png)
+
+*Complete E1-E9 research progression showing the scientific method in action*
+
 ### Performance Summary
 
 | Model | PR-AUC | ROC-AUC | F1 | Type |
@@ -83,13 +89,25 @@ pytest tests/test_trd_sampler.py -v
 | MLP (Baseline) | 0.3639 | 0.8297 | 0.4864 | Neural Net |
 | **E9 Fusion (GNN+Tabular)** 🏆 | **0.3003** | 0.8897 | 0.1758 | **Wallet-Level (+33.5%)** |
 
+![All Experiments Summary](reports/plots/all_experiments_summary.png)
+
+*Comprehensive performance comparison across all E1-E9 experiments*
+
 ### The Complete Scientific Story
+
+![Scientific Story Flowchart](reports/plots/scientific_story_flowchart.png)
+
+*The E6→E7→E9 progression: hypothesis through failure to solution*
 
 **E3 (Baseline):** Homogeneous temporal GNN → 0.5618 PR-AUC  
 **E6 (Hypothesis):** Complex heterogeneous GNN → 0.2806 PR-AUC (-49.7% ❌ failure)  
 **E7 (Investigation):** Systematic ablations to isolate root cause  
 **E7-A3 (Resolution):** Simplified heterogeneous GNN → 0.5846 PR-AUC (+4.1% ✅ success)  
 **E9 (Fusion):** GNN embeddings + Tabular features → 0.3003 PR-AUC (+33.5% ✅ synergy)
+
+![Performance Evolution](reports/plots/performance_evolution.png)
+
+*Architecture matters more than scale: E7-A3 beats E6 by 108% with 10x fewer parameters*
 
 **Key Discoveries:**
 1. **E6's failure was architectural, not structural** - Semantic attention + weak regularization caused collapse
@@ -99,19 +117,46 @@ pytest tests/test_trd_sampler.py -v
 5. **"Temporal tax" reduced** - From 16.5% (E3) → 12.6% (A3) vs unrealistic baselines
 6. **Fusion creates synergy (E9)** - Combining GNN embeddings with tabular features achieves +33.5% improvement
 
+![Temporal Tax Reduction](reports/plots/temporal_tax_reduction.png)
+
+*Temporal tax reduced from 16.5% (E3) to 12.6% (E7-A3) through architectural improvements*
+
+![E9 Fusion Synergy](reports/plots/e9_fusion_synergy.png)
+
+*E9 fusion achieves +33.5% improvement by combining GNN embeddings with tabular features*
+
 **Scientific Value:**
 This E6→E7→E9 progression demonstrates the **scientific method in action**: hypothesis → failure → systematic investigation → corrected understanding → improved solution → novel fusion approach. This complete narrative is **more valuable** than a single finding.
 
 ### Visualizations
 
-<details>
-<summary>Click to view comparison charts</summary>
+![All Experiments Summary](reports/plots/all_experiments_summary.png)
 
-![Model Comparison](reports/plots/model_comparison_top5.png)
-![Performance Gap](reports/plots/performance_gap.png)
-![PR vs ROC](reports/plots/pr_roc_scatter.png)
+*Complete E1-E9 experimental results showing the research journey*
 
-</details>
+![Performance Evolution](reports/plots/performance_evolution.png)
+
+*E6→E7-A3: Simple architecture beats complex by 108%*
+
+![Temporal Tax Reduction](reports/plots/temporal_tax_reduction.png)
+
+*Temporal tax reduced from 16.5% to 12.6% through architectural improvements*
+
+![E9 Fusion Synergy](reports/plots/e9_fusion_synergy.png)
+
+*E9 fusion demonstrates +33.5% synergy combining GNN + tabular features*
+
+![Scientific Story Flowchart](reports/plots/scientific_story_flowchart.png)
+
+*Complete scientific method: hypothesis → failure → investigation → solution → application*
+
+![Six Novel Contributions](reports/plots/six_contributions.png)
+
+*Six distinct contributions rated by citation value*
+
+![Architecture vs Scale](reports/plots/architecture_vs_scale.png)
+
+*Architecture design matters more than parameter count*
 
 **Full Analysis:** See [COMPARISON_REPORT.md](reports/COMPARISON_REPORT.md)
 

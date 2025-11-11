@@ -10,11 +10,19 @@
 
 ### **FUSION WINS!** 🏆
 
+![E9 Fusion Results](e9_fusion_comparison.png)
+
+*Fusion achieves +33.5% improvement by combining GNN embeddings with tabular features*
+
 The combination of GNN embeddings + tabular features significantly outperforms either approach alone.
 
 ---
 
 ## 📊 Performance Comparison
+
+![E9 Fusion Curves](e9_fusion_curves.png)
+
+*PR and ROC curves showing fusion model outperforming individual components*
 
 | Model | PR-AUC | ROC-AUC | F1 Score | Dimensions |
 |-------|--------|---------|----------|------------|
