@@ -192,12 +192,12 @@ TRDGNN/
 
 | Document | Description | Read Time |
 |----------|-------------|-----------|
-| 📘 [**PROJECT_NARRATIVE.md**](docs/PROJECT_NARRATIVE.md) | **Complete scientific story (E1-E9)** | ~15 min |
-| 📊 [**COMPARISON_REPORT.md**](reports/COMPARISON_REPORT.md) | Comprehensive results & methodology | ~12 min |
-| 🔬 [**E7_ABLATION_STUDY.md**](docs/E7_ABLATION_STUDY.md) | Systematic investigation methodology | ~8 min |
-| 🏆 [**E9_RESULTS.md**](reports/kaggle_results/E9_RESULTS.md) | Wallet fusion study (+33.5%) | ~6 min |
-| 📄 [**E6_ANALYSIS.md**](reports/kaggle_results/E6_ANALYSIS.md) | Complex model failure analysis | ~5 min |
-| 📋 [**PROJECT_SPEC.md**](PROJECT_SPEC.md) | Technical specifications | ~10 min |
+| 📘 [**PROJECT_NARRATIVE.md**](docs/PROJECT_NARRATIVE.md) | **Complete scientific story (E1-E9)** |
+| 📊 [**COMPARISON_REPORT.md**](reports/COMPARISON_REPORT.md) | Comprehensive results & methodology |
+| 🔬 [**E7_ABLATION_STUDY.md**](docs/E7_ABLATION_STUDY.md) | Systematic investigation methodology |
+| 🏆 [**E9_RESULTS.md**](reports/kaggle_results/E9_RESULTS.md) | Wallet fusion study (+33.5%) |
+| 📄 [**E6_ANALYSIS.md**](reports/kaggle_results/E6_ANALYSIS.md) | Complex model failure analysis |
+| 📋 [**PROJECT_SPEC.md**](PROJECT_SPEC.md) | Technical specifications |
 
 ---
 
