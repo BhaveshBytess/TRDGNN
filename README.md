@@ -117,7 +117,7 @@ ls reports/plots/           # Figures
 | **Timespan** | 49 timesteps (temporal graph) |
 | **Task** | Binary fraud classification |
 
-⚠️ **Dataset NOT included** — Download from [Kaggle Elliptic++ Dataset](https://www.kaggle.com/datasets/ellipticco/elliptic-data-set)
+⚠️ **Dataset NOT included** — Download from [Kaggle Elliptic++ Dataset]([https://www.kaggle.com/datasets/ellipticco/elliptic-data-set](https://www.kaggle.com/datasets/bhaveshblank/elliptic-dataset))
 
 **Required files:**
 ```
