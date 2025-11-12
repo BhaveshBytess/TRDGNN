@@ -190,8 +190,8 @@ TRDGNN/
 
 ### 🔗 **Key Documents**
 
-| Document | Description | Read Time |
-|----------|-------------|-----------|
+| Document | Description |
+|----------|-------------|
 | 📘 [**PROJECT_NARRATIVE.md**](docs/PROJECT_NARRATIVE.md) | **Complete scientific story (E1-E9)** |
 | 📊 [**COMPARISON_REPORT.md**](reports/COMPARISON_REPORT.md) | Comprehensive results & methodology |
 | 🔬 [**E7_ABLATION_STUDY.md**](docs/E7_ABLATION_STUDY.md) | Systematic investigation methodology |
